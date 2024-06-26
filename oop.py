@@ -74,18 +74,31 @@ class Reviewer(Mentor):
     def __str__(self):
         res = f"Имя: {self.name}\nФамилия: {self.surname}"
         return res
- 
+
+def students_average_grade(student_list, course):
+    grade_list = [grade for student in student_list for grade in student.grades.get(course)]
+    return sum(grade_list) / len(grade_list)
+
+def lecturer_average_grade(lecturer_list, course):
+    grade_list = [grade for lecturer in lecturer_list for grade in lecturer.grades.get(course)]
+    return sum(grade_list) / len(grade_list)
+
+
 best_student = Student('Ruoy', 'Eman', 'your_gender')
 best_student.courses_in_progress += ['Python']
 best_student.courses_in_progress += ['Git']
 
-second_student = Student('Ru', 'Em', 'your_gender')
+second_student = Student('Endy', 'Mitchel', 'm')
 second_student.courses_in_progress += ['Python']
-second_student.courses_in_progress += ['Git']
+second_student.courses_in_progress += ['C++']
  
 cool_reviewer = Reviewer('Some', 'Buddy')
 cool_reviewer.courses_attached += ['Python']
 cool_reviewer.courses_attached += ['Git']
+
+second_reviewer = Reviewer('Second', 'Buddy')
+second_reviewer.courses_attached += ['Python']
+second_reviewer.courses_attached += ['C++']
 
 cool_lecturer = Lecturer("Best", "Lecturer")
 cool_lecturer.courses_attached += ['Python']
@@ -93,19 +106,23 @@ cool_lecturer.courses_attached += ['Git']
 
 second_lecturer = Lecturer("Second", "Lecturer")
 second_lecturer.courses_attached += ['Python']
-second_lecturer.courses_attached += ['Git']
+second_lecturer.courses_attached += ['C++']
 
 best_student.rate_lecturer(cool_lecturer, 'Python', 9)
 best_student.rate_lecturer(cool_lecturer, 'Python', 5)
 best_student.rate_lecturer(cool_lecturer, 'Python', 8)
 
-best_student.rate_lecturer(second_lecturer, 'Python', 9)
-best_student.rate_lecturer(second_lecturer, 'Python', 5)
-best_student.rate_lecturer(second_lecturer, 'Python', 8)
+second_student.rate_lecturer(second_lecturer, 'Python', 9)
+second_student.rate_lecturer(second_lecturer, 'Python', 5)
+second_student.rate_lecturer(second_lecturer, 'Python', 8)
 
 best_student.rate_lecturer(cool_lecturer, 'Git', 7)
 best_student.rate_lecturer(cool_lecturer, 'Git', 6)
 best_student.rate_lecturer(cool_lecturer, 'Git', 5)
+
+second_student.rate_lecturer(second_lecturer, 'C++', 1)
+second_student.rate_lecturer(second_lecturer, 'C++', 3)
+second_student.rate_lecturer(second_lecturer, 'C++', 6)
  
 cool_reviewer.rate_hw(best_student, 'Python', 10)
 cool_reviewer.rate_hw(best_student, 'Python', 10)
@@ -131,3 +148,7 @@ print()
 print(cool_lecturer > second_lecturer)
 print()
 print(cool_lecturer < second_lecturer)
+print()
+print(students_average_grade([best_student, second_student], 'Python'))
+print()
+print(lecturer_average_grade([cool_lecturer, second_lecturer], 'Python'))
